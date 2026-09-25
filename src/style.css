@@ -540,9 +540,23 @@ button:focus-visible {
 }
 @media (max-width: 680px) {
   :root .hero-art img.chick {
-    width: 52px;
+    width: 38px;
+    animation: bob-mobile 0.38s steps(2) infinite;
   }
   :root .hero-art img.ball {
-    width: 31px;
+    width: 22px;
+    animation: ball-mobile 0.52s ease-in-out infinite alternate;
   }
+  .hero-art {
+    height: 19%;
+    min-height: 35px;
+  }
+}
+
+@keyframes bob-mobile {
+  50% { transform: translateY(-3px) rotate(-4deg); }
+}
+
+@keyframes ball-mobile {
+  to { transform: translateY(-8px) rotate(50deg); }
 }
