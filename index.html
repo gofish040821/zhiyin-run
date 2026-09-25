@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7e9b2" />
+    <meta name="description" content="只因快跑：原创像素小鸡无限跑酷小游戏。跳跃、下蹲、吃玉米，看看你能练多久！" />
+    <title>只因快跑 · Zhiyin Run</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand"><span class="brand-icon">🐤</span><span>只因快跑</span><small>ZHIYIN RUN</small></div>
+        <div class="top-actions"><button id="pause-button" class="icon-button" aria-label="暂停游戏" title="暂停 P">Ⅱ</button><button id="mute-button" class="icon-button" aria-label="静音" title="静音 M">♫</button></div>
+      </header>
+      <main class="shell">
+        <div id="game-frame" class="game-frame">
+          <div id="game"></div>
+          <div id="hud" class="hud hidden" aria-live="polite">
+            <div class="hud-left"><span class="hud-label">距离 DISTANCE</span><strong id="distance">0 <small>m</small></strong><span id="score" class="score">得分 0</span></div>
+            <div class="hud-right"><span class="hud-label">最高 BEST</span><strong id="best">0 <small>m</small></strong><span id="combo" class="combo"></span></div>
+            <div id="power-timer" class="power-timer hidden"></div>
+          </div>
+          <div id="start-screen" class="overlay title-screen">
+            <div class="title-badge">PIXEL ARCADE · ORIGINAL GAME</div>
+            <h1>只因<span>快跑</span></h1>
+            <p class="tagline">练习两年半，跑遍大农场。</p>
+            <div class="hero-art" aria-hidden="true"><img id="hero-ball" class="ball" alt="" /><img id="hero-chick" class="chick" alt="" /><div class="motion">〰 〰</div></div>
+            <button id="start-button" class="primary-button">▶ 开始练习</button>
+            <p class="instructions">SPACE / ↑ 跳跃 <span>·</span> ↓ 下蹲 <span>·</span> P 暂停</p>
+            <p class="best-line">最高纪录 <strong id="start-best">0 m</strong></p>
+          </div>
+          <div id="pause-screen" class="overlay pause-screen hidden"><h2>暂停练习</h2><p>深呼吸，下一跳更稳。</p><button id="resume-button" class="primary-button">▶ 继续练习</button></div>
+          <div id="gameover-screen" class="overlay gameover-screen hidden"><div class="gameover-badge">哎哟！</div><h2>GAME OVER</h2><p>本次距离 <strong id="final-distance">0 m</strong></p><p>本次得分 <strong id="final-score">0</strong></p><p>最高纪录 <strong id="final-best">0 m</strong></p><button id="restart-button" class="primary-button">↻ 再练两年半</button><span class="restart-hint">按 R 也可以重开</span></div>
+          <div id="touch-hint" class="touch-hint">轻点跳跃 · 下滑下蹲</div>
+        </div>
+      </main>
+      <footer class="footer"><span>🌽 吃玉米 · 躲障碍 · 秀操作</span><span>原创像素游戏 · v1.0</span></footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
