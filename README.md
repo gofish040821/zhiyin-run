@@ -2,8 +2,6 @@
 
 一款原创像素小鸡无限跑酷网页游戏。自动奔跑，跳过地面障碍、蹲过低飞小鸟，收集玉米和特殊道具，挑战最高距离。
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/gofish040821/zhiyin-run)
-
 ## 操作
 
 | 设备 | 操作 |
@@ -38,7 +36,7 @@ npm run preview
 
 ## Render 部署
 
-创建 **Static Site**，连接 `gofish040821/zhiyin-run` 的 `main` 分支：
+创建 **Static Site**，在 Source 中选择 **Git Provider** 并连接 `gofish040821/zhiyin-run` 的 `main` 分支。不要选择 **Public Git Repository URL**，该接入方式不支持自动部署。
 
 | 设置 | 值 |
 | --- | --- |
