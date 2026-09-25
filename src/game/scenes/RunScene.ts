@@ -50,8 +50,8 @@ export class RunScene extends Phaser.Scene {
     this.setHeroImage('hero-chick', 'chick-basketball');
     this.setHeroImage('hero-ball', 'ob-basketball');
     this.background = this.add.graphics().setDepth(-10);
-    this.player = this.add.image(GameConfig.playerX, GameConfig.groundY, 'chick-idle').setOrigin(0.5, 1).setScale(1.5).setDepth(10);
-    this.basketball = this.add.image(GameConfig.playerX - 48, GameConfig.groundY, 'ob-basketball').setOrigin(0.5, 1).setScale(0.65).setDepth(9);
+    this.player = this.add.image(GameConfig.playerX, GameConfig.groundY, 'chick-idle').setOrigin(0.5, 1).setScale(1.5).setDepth(10).setVisible(false);
+    this.basketball = this.add.image(GameConfig.playerX - 48, GameConfig.groundY, 'ob-basketball').setOrigin(0.5, 1).setScale(0.65).setDepth(9).setVisible(false);
     this.drawBackground();
     this.emit();
   }
@@ -72,8 +72,8 @@ export class RunScene extends Phaser.Scene {
     this.ducking = false; this.duckHeld = false; this.duckUntil = 0; this.nextObstacle = 1.55; this.nextPickup = 0.9;
     this.elapsed = 0; this.worldOffset = 0; this.powerTime = 0; this.powerName = '';
     this.skillSet.clear(); this.deathTime = 0; this.lastHud = 0;
-    this.player.setPosition(GameConfig.playerX, GameConfig.groundY).setAngle(0).setAlpha(1).setTexture('chick-run0');
-    this.basketball.setPosition(GameConfig.playerX - 48, GameConfig.groundY).setAngle(0).setAlpha(1);
+    this.player.setPosition(GameConfig.playerX, GameConfig.groundY).setAngle(0).setAlpha(1).setTexture('chick-run0').setVisible(true);
+    this.basketball.setPosition(GameConfig.playerX - 48, GameConfig.groundY).setAngle(0).setAlpha(1).setVisible(false);
     this.state = 'playing';
     this.emit();
   }

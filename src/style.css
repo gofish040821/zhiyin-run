@@ -539,17 +539,29 @@ button:focus-visible {
   image-rendering: pixelated;
 }
 @media (max-width: 680px) {
+  .title-screen .primary-button {
+    margin-top: 12px;
+  }
   :root .hero-art img.chick {
-    width: 38px;
+    width: 42px;
+    position: absolute;
+    right: 0;
+    bottom: 5px;
     animation: bob-mobile 0.38s steps(2) infinite;
   }
   :root .hero-art img.ball {
-    width: 22px;
+    width: 23px;
+    left: 0;
+    bottom: 0;
     animation: ball-mobile 0.52s ease-in-out infinite alternate;
   }
   .hero-art {
-    height: 19%;
-    min-height: 35px;
+    position: absolute;
+    left: 2%;
+    top: 57%;
+    width: 22%;
+    height: 29%;
+    min-height: 0;
   }
 }
 
