@@ -2,6 +2,8 @@
 
 一款原创像素小鸡无限跑酷网页游戏。自动奔跑，跳过地面障碍、蹲过低飞小鸟，收集玉米和特殊道具，挑战最高距离。
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/gofish040821/zhiyin-run)
+
 ## 操作
 
 | 设备 | 操作 |
