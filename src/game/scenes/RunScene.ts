@@ -28,6 +28,7 @@ export class RunScene extends Phaser.Scene {
   private playerBottom: number = GameConfig.groundY;
   private verticalSpeed = 0;
   private ducking = false;
+  private duckHeld = false;
   private duckUntil = 0;
   private nextObstacle = 1.5;
   private nextPickup = 0.6;
@@ -68,7 +69,7 @@ export class RunScene extends Phaser.Scene {
     this.obstacles = []; this.pickups = []; this.sparks = [];
     this.distance = 0; this.score = 0; this.cornScore = 0; this.combo = 0; this.comboTime = 0;
     this.speed = GameConfig.baseSpeed; this.playerBottom = GameConfig.groundY; this.verticalSpeed = 0;
-    this.ducking = false; this.duckUntil = 0; this.nextObstacle = 1.55; this.nextPickup = 0.9;
+    this.ducking = false; this.duckHeld = false; this.duckUntil = 0; this.nextObstacle = 1.55; this.nextPickup = 0.9;
     this.elapsed = 0; this.worldOffset = 0; this.powerTime = 0; this.powerName = '';
     this.skillSet.clear(); this.deathTime = 0; this.lastHud = 0;
     this.player.setPosition(GameConfig.playerX, GameConfig.groundY).setAngle(0).setAlpha(1).setTexture('chick-run0');
@@ -91,6 +92,7 @@ export class RunScene extends Phaser.Scene {
   }
   setDuck(value: boolean): void {
     if (this.state !== 'playing') return;
+    this.duckHeld = value;
     this.ducking = value && this.playerBottom >= GameConfig.groundY - 1;
   }
   swipeDuck(): void {
@@ -154,8 +156,8 @@ export class RunScene extends Phaser.Scene {
         audio.land(); this.spark(GameConfig.playerX - 15, GameConfig.groundY - 5, '#f7e3ae', 0.22);
       }
     }
-    if (this.duckUntil > this.elapsed) this.ducking = this.playerBottom >= GameConfig.groundY - 1;
-    else if (this.duckUntil > 0) { this.duckUntil = 0; this.ducking = false; }
+    if (this.duckUntil <= this.elapsed) this.duckUntil = 0;
+    this.ducking = (this.duckHeld || this.duckUntil > 0) && this.playerBottom >= GameConfig.groundY - 1;
     const pose = this.ducking ? 'duck' : this.playerBottom < GameConfig.groundY - 1 ? 'jump' : this.powerName === '全能练习生' ? 'celebrate' : `run${Math.floor(this.elapsed * 11) % 2}`;
     this.player.setTexture(`chick-${pose}`).setY(this.playerBottom + (pose.startsWith('run') ? Math.sin(this.elapsed * 22) * 2 : 0));
     this.player.setTint(this.powerTime > 0 ? (Math.floor(this.elapsed * 12) % 2 ? 0xffe77d : 0xffffff) : 0xffffff);
@@ -215,7 +217,8 @@ export class RunScene extends Phaser.Scene {
       if (item.kind === 'basketball') item.sprite.y = GameConfig.groundY - Math.abs(Math.sin(this.elapsed * 7 + item.phase)) * 10;
       if (item.kind === 'bird') item.sprite.y = 417 + Math.sin(this.elapsed * 5 + item.phase) * 3;
       item.sprite.x = item.x;
-      const bounds = new Phaser.Geom.Rectangle(item.x - item.width / 2, item.bottom - item.height, item.width, item.height);
+      const bottom = item.kind === 'basketball' ? item.sprite.y : item.bottom;
+      const bounds = new Phaser.Geom.Rectangle(item.x - item.width / 2, bottom - item.height, item.width, item.height);
       const horizontalOverlap = player.right > bounds.left && player.left < bounds.right;
       if (horizontalOverlap) {
         const gap = player.bottom < bounds.top ? bounds.top - player.bottom : player.top > bounds.bottom ? player.top - bounds.bottom : 0;
@@ -298,6 +301,7 @@ export class RunScene extends Phaser.Scene {
 
   private finishDeath(): void {
     this.state = 'gameover';
+    this.player.setTexture('chick-over');
     this.best = setBest(this.distance);
     audio.gameOver(); this.emit();
   }
@@ -361,6 +365,6 @@ export class RunScene extends Phaser.Scene {
   }
 
   private emit(): void {
-    runEvents.emit({ state: this.state, distance: Math.floor(this.distance), score: Math.floor(this.distance + this.cornScore + this.score), best: this.best, combo: this.combo, power: this.powerName, powerRemaining: this.powerTime });
+    runEvents.emit({ state: this.state, distance: Math.floor(this.distance), score: Math.floor(this.distance + this.cornScore + this.score), best: Math.max(this.best, Math.floor(this.distance)), combo: this.combo, power: this.powerName, powerRemaining: this.powerTime });
   }
 }
